@@ -7,6 +7,7 @@ import { validationResult } from "express-validator";
 import { registerValidator } from './validations/auth.js'
 
 import UserModel from './models/User.js'
+import checkAuth from './utils/checkAuth.js'
 
 mongoose
     .connect('mongodb+srv://nowly:6277mars@cluster0.3lrp1om.mongodb.net/blog?retryWrites=true&w=majority')
@@ -103,9 +104,11 @@ app.post('/auth/register', registerValidator, async (req, res) => {
     }
 })
 
-app.get('/auth/me', (req, res) => {
+app.get('/auth/me', checkAuth, (req, res) => {
     try {
-
+        res.json({
+            success: 'true'
+        })
     } catch (err) {
 
     }
