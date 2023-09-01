@@ -8,6 +8,7 @@ import { registerValidator } from './validations/auth.js'
 
 import UserModel from './models/User.js'
 import checkAuth from './utils/checkAuth.js'
+import User from './models/User.js';
 
 mongoose
     .connect('mongodb+srv://nowly:6277mars@cluster0.3lrp1om.mongodb.net/blog?retryWrites=true&w=majority')
@@ -104,13 +105,25 @@ app.post('/auth/register', registerValidator, async (req, res) => {
     }
 })
 
-app.get('/auth/me', checkAuth, (req, res) => {
+app.get('/auth/me', checkAuth, async (req, res) => {
     try {
-        res.json({
-            success: 'true'
-        })
-    } catch (err) {
+        const user = await UserModel.findById(req.userId)
 
+        if (!user) {
+            return res.status(404).json({
+                message: 'Пользователь не найден'
+            })
+        }
+
+
+        const { passwordHash, ...userData } = user._doc
+
+        res.json(userData)
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Нет доступа',
+        })
     }
 })
 
