@@ -13,8 +13,8 @@ export const registerValidator = [
 ]
 
 export const postCreateValidator = [
-    body('email', 'Неверный формат почты').isEmail(),
-    body('password', 'Минимальная длина пароля 5 символов').isLength({ min: 5 }),
-    body('fullName', 'Укажите имя').isLength({ min: 2 }),
-    body('avatarUrl', 'Некорректная ссылка на аватарку').optional().isURL(),
+    body('title', 'Введите заголовок статьи').isLength({ min: 3 }).isString(),
+    body('text', 'Введите текст статьи').isLength({ min: 3 }).isString(),
+    body('tags', 'Неверный формат тегов, укажите массив').optional().isString(),
+    body('imageUrl', 'Некорректная ссылка на изображение').optional().isString(),
 ]
