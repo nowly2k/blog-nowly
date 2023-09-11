@@ -15,6 +15,6 @@ export const registerValidator = [
 export const postCreateValidator = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3 }).isString(),
     body('text', 'Введите текст статьи').isLength({ min: 3 }).isString(),
-    body('tags', 'Неверный формат тегов, укажите массив').optional().isString(),
+    body('tags', 'Неверный формат тегов').optional().isString(),
     body('imageUrl', 'Некорректная ссылка на изображение').optional().isString(),
 ]
