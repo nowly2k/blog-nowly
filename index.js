@@ -12,7 +12,7 @@ import { UserController, PostController } from './controllers/index.js'
 
 mongoose
     .connect(
-        process.env.MONGODB_URII
+        'mongodb+srv://nowly:6277mars@cluster0.3lrp1om.mongodb.net/blog?retryWrites=true&w=majority'
     )
     .then(() => console.log('Database OK'))
     .catch(() => console.log('Database ERROR'))
@@ -53,7 +53,7 @@ app.post('/posts', checkAuth, postCreateValidator, handleValidationErrors, PostC
 app.delete('/posts/:id', checkAuth, PostController.remove)
 app.patch('/posts/:id', checkAuth, postCreateValidator, handleValidationErrors, PostController.update)
 
-app.listen(process.env.PORT || 4444, (err) => {
+app.listen(4444, (err) => {
     if (err) {
         return console.log(err)
     }
